@@ -10,8 +10,15 @@ services:
       - mongodb
     networks:
       - backend
+      
+  product-service:
+    build: ./services/product-service
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
 
-  mongodb:  # Ajout du service MongoDB
+  mongodb: 
     image: mongo:6
     restart: always
     ports:
