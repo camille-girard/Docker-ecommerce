@@ -1,0 +1,7 @@
+services:
+  product-service:
+    build: ./services/product-service
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
