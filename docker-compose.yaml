@@ -1,0 +1,27 @@
+services:
+  auth-service:
+    build: ./services/auth-service
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongodb
+    networks:
+      - backend
+
+  mongodb:  # Ajout du service MongoDB
+    image: mongo:6
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
