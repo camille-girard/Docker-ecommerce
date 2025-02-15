@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      target: production-stage
+    ports:
+      - "8080:80"
+    networks:
+      - backend
+    depends_on:
+      - auth-service
+      - product-service
+      - order-service
+
+  auth-service:
+    build:
+      context: ./services/auth-service
+    restart: always
+    env_file:
+      - .env.production
+    networks:
+      - backend
+    depends_on:
+      - mongodb
+
+  product-service:
+    build:
+      context: ./services/product-service
+    restart: always
+    env_file:
+      - .env.production
+    networks:
+      - backend
+
+  order-service:
+    build:
+      context: ./services/order-service
+    restart: always
+    env_file:
+      - .env.production
+    networks:
+      - backend
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:6
+    restart: always
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+    driver: local

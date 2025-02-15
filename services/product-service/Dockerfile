@@ -1,4 +1,4 @@
-FROM node:22-alpine AS base
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
@@ -8,11 +8,11 @@ RUN npm i
 
 COPY . .
 
-FROM base AS production
+FROM builder AS production
 ENV NODE_ENV=production
 RUN npm run build
 
-FROM base AS development
+FROM builder AS development
 ENV NODE_ENV=development
 
 CMD ["npm", "run", "dev"]
