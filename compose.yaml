@@ -1,0 +1,67 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      target: dev-stage
+    ports:
+      - "5173:5173"
+      - "8080:8080"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    env_file:
+      - .env.development
+    networks:
+      - backend
+    command: ["npm", "run", "dev"]
+
+  auth-service:
+    build:
+      context : ./services/auth-service
+      target: development
+    restart: always
+    env_file:
+      - .env.development
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongodb
+    networks:
+      - backend
+
+  product-service:
+    build:
+      context : ./services/product-service
+      target: development
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.development
+
+  order-service:
+    build:
+      context: ./services/order-service
+      target: development
+    ports:
+      - "3002:3002"
+    env_file:
+      - .env.development
+    depends_on:
+      - mongodb
+    networks:
+      - backend
+
+  mongodb:
+    image: mongo:6
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
