@@ -1,4 +1,20 @@
 services:
+  frontend:
+    build:
+      context: ./frontend
+      target: dev-stage
+    ports:
+      - "5173:5173"
+      - "8080:80"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    env_file:
+      - .env
+    networks:
+      - backend
+    command: ["npm", "run", "dev"]
+
   auth-service:
     build: ./services/auth-service
     restart: always
@@ -10,7 +26,7 @@ services:
       - mongodb
     networks:
       - backend
-      
+
   product-service:
     build: ./services/product-service
     ports:
@@ -18,7 +34,18 @@ services:
     env_file:
       - .env
 
-  mongodb: 
+  order-service:
+    build: ./services/order-service
+    ports:
+      - "3002:3002"
+    env_file:
+      - .env
+    depends_on:
+      - mongodb
+    networks:
+      - backend
+
+  mongodb:
     image: mongo:6
     restart: always
     ports:
