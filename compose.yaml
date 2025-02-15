@@ -5,7 +5,7 @@ services:
       target: dev-stage
     ports:
       - "5173:5173"
-      - "8080:80"
+      - "8080:8080"
     volumes:
       - ./frontend:/app
       - /app/node_modules
