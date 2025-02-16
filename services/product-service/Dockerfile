@@ -1,22 +1,23 @@
-FROM node:22-alpine AS builder
-
+FROM node:22-alpine AS base
 WORKDIR /app
+COPY package*.json ./
 
-COPY package.json ./
-
-RUN npm i
-
+FROM base AS development
+RUN npm install
 COPY . .
-
-FROM builder AS production
-ENV NODE_ENV=production
-RUN npm run build
-
-FROM builder AS development
-ENV NODE_ENV=development
-
+ENV MONGODB_URI=mongodb://mongodb:27017/mongodb
+EXPOSE 3000
 CMD ["npm", "run", "dev"]
 
-FROM ${NODE_ENV:-development}
+FROM base AS builder
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM node:22-alpine AS production
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY package*.json ./
+RUN npm ci --only=production
 EXPOSE 3000
 CMD ["npm", "run", "start"]
