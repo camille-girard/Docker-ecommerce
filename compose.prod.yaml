@@ -9,6 +9,15 @@ services:
       - "8080:80"
     networks:
       - backend
+    deploy:
+      mode: replicated
+      replicas: 2
+      restart_policy:
+        condition: any
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512M"
     depends_on:
       - auth-service
       - product-service
@@ -17,37 +26,71 @@ services:
   auth-service:
     build:
       context: ./services/auth-service
-    restart: always
     env_file:
       - .env.production
     networks:
       - backend
-    depends_on:
-      - mongodb
+    deploy:
+      mode: replicated
+      replicas: 2
+      restart_policy:
+        condition: any
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512M"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   product-service:
     build:
       context: ./services/product-service
-    restart: always
     env_file:
       - .env.production
     networks:
       - backend
+    deploy:
+      mode: replicated
+      replicas: 2
+      restart_policy:
+        condition: any
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512M"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   order-service:
     build:
       context: ./services/order-service
-    restart: always
     env_file:
       - .env.production
     networks:
       - backend
-    depends_on:
-      - mongodb
+    deploy:
+      mode: replicated
+      replicas: 2
+      restart_policy:
+        condition: any
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512M"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   mongodb:
     image: mongo:6
-    restart: always
     volumes:
       - mongodb_data:/data/db
     environment:
@@ -55,10 +98,18 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=example
     networks:
       - backend
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: "1G"
 
 networks:
   backend:
-    driver: bridge
+    driver: overlay
 
 volumes:
   mongodb_data:
