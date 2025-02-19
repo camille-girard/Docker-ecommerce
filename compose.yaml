@@ -37,6 +37,10 @@ services:
       - "3000:3000"
     env_file:
       - .env.development
+    depends_on:
+      - mongodb
+    networks:
+      - backend
 
   order-service:
     build:
@@ -56,9 +60,6 @@ services:
     restart: always
     ports:
       - "27017:27017"
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=example
     networks:
       - backend
 
