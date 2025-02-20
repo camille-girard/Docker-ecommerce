@@ -4,7 +4,7 @@ services:
   frontend:
     image: frontend:latest
     ports:
-      - "8080:80"
+      - "8090:80"
     networks:
       - backend
     deploy:
