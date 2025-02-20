@@ -2,9 +2,7 @@ FROM node:18-alpine AS dev-stage
 
 WORKDIR /app
 
-COPY package.json package-lock.json* ./
-
-RUN if [ ! -f package-lock.json ]; then npm install --package-lock-only; fi
+COPY package.json ./
 
 RUN npm install
 
@@ -18,7 +16,7 @@ FROM node:18-alpine AS build-stage
 
 WORKDIR /app
 
-COPY package.json package-lock.json* ./
+COPY package.json ./
 RUN npm install
 COPY . .
 RUN npm run build
