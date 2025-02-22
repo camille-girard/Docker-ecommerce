@@ -1,0 +1,55 @@
+name: Docker Build
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image auth-service
+        uses: docker/build-push-action@v5
+        with:
+          context: ./services/auth-service
+          push: false
+          load: true
+          tags: docker-ecommerce:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Build Docker image product
+        uses: docker/build-push-action@v5
+        with:
+          context: ./services/product-service
+          push: false
+          load: true
+          tags: docker-ecommerce:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Build Docker image order-service
+        uses: docker/build-push-action@v5
+        with:
+          context: ./services/order-service
+          push: false
+          load: true
+          tags: docker-ecommerce:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Build Docker image fronted
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          push: false
+          load: true
+          tags: docker-ecommerce:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
