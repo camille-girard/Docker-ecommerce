@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="12" failures="0" errors="0" time="0.401">
+    <testsuite name="tests/App.spec.js" timestamp="2025-02-22T11:26:03.240Z" hostname="MacBook-Pro-2.local" tests="3" failures="0" errors="0" skipped="0" time="0.026">
+        <testcase classname="tests/App.spec.js" name="App &gt; initialise correctement l&apos;état du panier" time="0.017">
+            <system-err>
+Erreur chargement produits: TypeError: Cannot read properties of undefined (reading &apos;data&apos;)
+    at loadProducts [90m(/Users/katalina.dnl/Desktop/ESGI/4IW2/docker-avance/Docker-ecommerce/frontend/[39msrc/App.vue:61:35[90m)[39m
+Erreur chargement panier: TypeError: Cannot read properties of undefined (reading &apos;data&apos;)
+    at loadCart [90m(/Users/katalina.dnl/Desktop/ESGI/4IW2/docker-avance/Docker-ecommerce/frontend/[39msrc/App.vue:80:36[90m)[39m
+
+            </system-err>
+        </testcase>
+        <testcase classname="tests/App.spec.js" name="App &gt; met à jour correctement le panier lors de l&apos;ajout d&apos;un produit" time="0.006">
+            <system-out>
+Adding to cart: { _id: [33m1[39m, name: [32m&apos;Test&apos;[39m, price: [33m100[39m }
+
+            </system-out>
+            <system-err>
+Erreur chargement produits: TypeError: Cannot read properties of undefined (reading &apos;data&apos;)
+    at loadProducts [90m(/Users/katalina.dnl/Desktop/ESGI/4IW2/docker-avance/Docker-ecommerce/frontend/[39msrc/App.vue:61:35[90m)[39m
+Erreur chargement panier: TypeError: Cannot read properties of undefined (reading &apos;data&apos;)
+    at loadCart [90m(/Users/katalina.dnl/Desktop/ESGI/4IW2/docker-avance/Docker-ecommerce/frontend/[39msrc/App.vue:80:36[90m)[39m
+
+            </system-err>
+        </testcase>
+        <testcase classname="tests/App.spec.js" name="App &gt; supprime correctement un produit du panier" time="0.003">
+            <system-out>
+Adding to cart: { _id: [33m1[39m, name: [32m&apos;Test&apos;[39m, price: [33m100[39m }
+
+            </system-out>
+            <system-err>
+Erreur chargement produits: TypeError: Cannot read properties of undefined (reading &apos;data&apos;)
+    at loadProducts [90m(/Users/katalina.dnl/Desktop/ESGI/4IW2/docker-avance/Docker-ecommerce/frontend/[39msrc/App.vue:61:35[90m)[39m
+Erreur chargement panier: TypeError: Cannot read properties of undefined (reading &apos;data&apos;)
+    at loadCart [90m(/Users/katalina.dnl/Desktop/ESGI/4IW2/docker-avance/Docker-ecommerce/frontend/[39msrc/App.vue:80:36[90m)[39m
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/components/ProductList.spec.js" timestamp="2025-02-22T11:26:03.246Z" hostname="MacBook-Pro-2.local" tests="3" failures="0" errors="0" skipped="0" time="0.017">
+        <testcase classname="tests/components/ProductList.spec.js" name="ProductList &gt; affiche correctement la liste des produits" time="0.011">
+        </testcase>
+        <testcase classname="tests/components/ProductList.spec.js" name="ProductList &gt; émet un événement add-to-cart lors du clic sur le bouton ajouter" time="0.003">
+        </testcase>
+        <testcase classname="tests/components/ProductList.spec.js" name="ProductList &gt; affiche correctement les prix des produits" time="0.002">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/components/ShoppingCart.spec.js" timestamp="2025-02-22T11:26:03.246Z" hostname="MacBook-Pro-2.local" tests="3" failures="0" errors="0" skipped="0" time="0.014">
+        <testcase classname="tests/components/ShoppingCart.spec.js" name="ShoppingCart &gt; affiche un panier vide par défaut" time="0.007">
+            <system-out>
+cartItems: []
+
+            </system-out>
+            <system-err>
+[Vue Router warn]: No match found for location with path &quot;/&quot;
+
+            </system-err>
+        </testcase>
+        <testcase classname="tests/components/ShoppingCart.spec.js" name="ShoppingCart &gt; calcule correctement le total du panier" time="0.004">
+            <system-out>
+cartItems: [
+  { productId: { _id: [33m1[39m, name: [32m&apos;Produit 1&apos;[39m, price: [33m100[39m }, quantity: [33m1[39m },
+  { productId: { _id: [33m2[39m, name: [32m&apos;Produit 2&apos;[39m, price: [33m200[39m }, quantity: [33m1[39m }
+]
+
+            </system-out>
+        </testcase>
+        <testcase classname="tests/components/ShoppingCart.spec.js" name="ShoppingCart &gt; émet un événement remove-from-cart lors du clic sur le bouton supprimer" time="0.003">
+            <system-out>
+cartItems: [
+  { productId: { _id: [33m1[39m, name: [32m&apos;Produit 1&apos;[39m, price: [33m100[39m }, quantity: [33m1[39m }
+]
+
+            </system-out>
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/components/productService.spec.js" timestamp="2025-02-22T11:26:03.247Z" hostname="MacBook-Pro-2.local" tests="3" failures="0" errors="0" skipped="0" time="0.016">
+        <testcase classname="tests/components/productService.spec.js" name="ProductList &gt; affiche correctement la liste des produits" time="0.012">
+        </testcase>
+        <testcase classname="tests/components/productService.spec.js" name="ProductList &gt; émet un événement add-to-cart lors du clic sur le bouton ajouter" time="0.003">
+        </testcase>
+        <testcase classname="tests/components/productService.spec.js" name="ProductList &gt; affiche correctement les prix des produits" time="0.001">
+        </testcase>
+    </testsuite>
+</testsuites>

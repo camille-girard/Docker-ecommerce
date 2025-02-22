@@ -1,4 +1,3 @@
-# Étape 1 : Développement sécurisé
 FROM node:18-alpine AS development
 
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
