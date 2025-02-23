@@ -35,4 +35,4 @@ services/product-service/node_modules
 services/product-service/coverage/*
 
 frontend/node_modules
-frontend/tests-results
+frontend/test-results
