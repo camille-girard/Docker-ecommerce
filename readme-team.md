@@ -15,10 +15,18 @@ Ce projet e-commerce utilise une architecture microservices comprenant un fronte
 
 ### 🚀 **1. Environnement de Développement**
 
+Pour démarrer les services en mode développement, utilisez la commande suivante :
+
 ```bash
 docker compose -f compose.yml up --build -d
 ```
+- docker compose: Utilise Docker Compose pour gérer les conteneurs.
+- -f compose.yml: Spécifie le fichier de configuration Docker Compose à utiliser (compose.yml).
+- up: Crée et démarre les conteneurs définis dans le fichier de configuration.
+- --build: Reconstruit les images Docker avant de démarrer les conteneurs.
+- -d: Démarre les conteneurs en mode détaché (en arrière-plan).
 
+Les services seront accessibles aux adresses suivantes :
 - Frontend : `http://localhost:8090`
 - Auth Service : `http://localhost:3001`
 - Product Service : `http://localhost:3000`
@@ -27,15 +35,20 @@ docker compose -f compose.yml up --build -d
 
 ### 🌐 **2. Environnement de Production**
 
+Pour démarrer les services en mode production, utilisez la commande suivante :
+
 ```bash
 docker compose -f compose.prod.yml up -d
 ```
 
+Les services seront accessibles aux adresses suivantes :
 - **Frontend (via Nginx)** : L'application frontend est servie par Nginx sur `http://localhost:8090`, offrant des performances améliorées et une meilleure gestion des requêtes HTTP.
 - **Déploiement répliqué** : Chaque service backend (Auth, Product, Order) s'exécute en 2 instances, garantissant la haute disponibilité et la scalabilité. MongoDB fonctionne en mode global, assurant qu'une seule instance s'exécute par nœud Docker.
 - **Vérification de la santé des services** : Docker effectue des vérifications automatiques (healthchecks) en envoyant régulièrement des requêtes aux points `/api/health`. Si un service échoue, Docker le redémarre automatiquement.
 
 ### 🛑 **3. Arrêt des Services :**
+
+Pour arrêter et supprimer les conteneurs, les réseaux, volumes et images, utilisez la commande suivante :
 
 ```bash
 docker-compose down
@@ -43,6 +56,8 @@ docker-compose down
 
 ### 🔄 **4. Nettoyage :**
 
+Pour nettoyer les ressources Docker inutilisées, utilisez la commande suivante.
+Cette commande supprime toutes les ressources inutilisées (conteneurs, réseaux, images, volumes) pour libérer de l'espace :
 ```bash
 docker system prune -f
 ```
@@ -68,6 +83,8 @@ docker system prune -f
 ## 🧪 **Commandes pour Tester les Services**
 
 ### 🔗 **Santé des Services :**
+
+Pour vérifier la santé des services, utilisez les commandes suivantes :
 
 ```bash
 curl http://localhost:3001/api/health  # Auth Service
