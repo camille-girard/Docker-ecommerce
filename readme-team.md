@@ -18,7 +18,7 @@ Ce projet e-commerce utilise une architecture microservices comprenant un fronte
 Pour démarrer les services en mode développement, utilisez la commande suivante :
 
 ```bash
-docker compose -f compose.yml up --build -d
+docker compose -f compose.yaml up --build -d
 ```
 - docker compose: Utilise Docker Compose pour gérer les conteneurs.
 - -f compose.yml: Spécifie le fichier de configuration Docker Compose à utiliser (compose.yml).
@@ -38,7 +38,7 @@ Les services seront accessibles aux adresses suivantes :
 Pour démarrer les services en mode production, utilisez la commande suivante :
 
 ```bash
-docker compose -f compose.prod.yml up -d
+docker compose -f compose.prod.yaml up -d
 ```
 
 Les services seront accessibles aux adresses suivantes :
@@ -100,6 +100,7 @@ Le projet a été testé en incluant les tests suivants :
 
 - **Tests fournis par Monsieur Laine** : Tous les tests cURL, les scripts `run-tests.sh` et les commandes `npm` fournis ont été exécutés avec succès.
 - **Tests de Sécurité avec Trivy** :
+  - Installation de Trivy : Pour installer Trivy, suivez les instructions sur la page GitHub de Trivy 'https://github.com/aquasecurity/trivy#installation'.
   - Analyse des images Docker pour détecter les vulnérabilités.
   - Commandes utilisées :
     ```bash
